@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Список дел на Vue.js</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h1>Мой список дел</h1>
+        
+        <div class="todo-form">
+            <input 
+                v-model="newTodo" 
+                @keyup.enter="addTodo" 
+                placeholder="Добавить новую задачу..."
+                class="todo-input"
+            >
+            <button @click="addTodo" class="add-btn">Добавить</button>
+        </div>
+        
+        <ul class="todo-list">
+            <todo-item
+                v-for="(todo, index) in todos"
+                :key="todo.id"
+                :todo="todo"
+                @remove="removeTodo(index)"
+                @toggle="toggleTodo(index)"
+            ></todo-item>
+        </ul>
+        
+        <div class="stats" v-if="todos.length">
+            Всего задач: {{ todos.length }} | 
+            Выполнено: {{ completedCount }}
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
